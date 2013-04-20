@@ -9,5 +9,7 @@ libraries:
   version: latest
 
 handlers:
+- url: /test
+  script: test.app
 - url: /.*
-  script: ree-melbourne.app
+  script: ree_melbourne.app
