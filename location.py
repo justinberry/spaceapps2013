@@ -33,10 +33,8 @@ def GetDistances(lat, lng, candidates):
         "destinations": "|".join(
             ["%s,%s" % (c.lat, c.lng) for c in candidates])
         }
-    print url
     result = urlfetch.fetch(url)
     distance_response = simplejson.loads(result.content)
-    print distance_response
     distances = [
         d["distance"]["value"] for d in distance_response["rows"][0]["elements"]]
     return distances
@@ -57,7 +55,6 @@ def GetMinCandidateIndex(lat, lng, candidates):
     min_distance = sys.maxint
     min_idx = -1
     for i, d in enumerate(distances):
-        print i, d
         if d < min_distance:
             min_distance = d
             min_idx = i

@@ -27,22 +27,6 @@ class Home(webapp2.RequestHandler):
         return location.GetLatitudeLongitude(city)
 
     def get(self):
-        cities = {}
-        for c in annual_solar.CITY_SOLAR_DATA:
-            annual_solar.AnnualSolarPotential(
-                key_name=utils.CreateDataStoreKey(c[2], c[3]),
-                city=c[0], region=c[1], country="Australia",
-                lat=float(c[2]), lng=float(c[3]),
-                potential=float(c[4]), actual=float(c[5])).put()
-            self.response.out.write("Added %s solar data<br/>" % c[0])
-        for c in annual_wind.CITY_WIND_DATA:
-            annual_wind.AnnualWindPotential(
-                key_name=utils.CreateDataStoreKey(c[2], c[3]),
-                city=c[0], region=c[1], country="Australia",
-                lat=float(c[2]), lng=float(c[3]),
-                potential=float(c[4]), actual=float(c[5])).put()
-            self.response.out.write("Added %s wind data<br/>" % c[0])
-        self.response.out.write("--------------------<br/>")
         latitude = self.request.get("lat", default_value=-37.814107)
         longitude = self.request.get("lng", default_value=144.963280)
 

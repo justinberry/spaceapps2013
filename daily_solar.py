@@ -30,7 +30,6 @@ def IngestData(filename):
         except ValueError:
             # We've run out of data values.
             break
-    print N_ROWS, N_COLS
 
 
 def GetSunExposure(lat, lng):
@@ -38,5 +37,4 @@ def GetSunExposure(lat, lng):
         IngestData(FILENAME)
     x_idx = int((float(lng) - XLL_CENTER) / CELL_SIZE)
     y_idx = N_ROWS - int((float(lat) - YLL_CENTER) / CELL_SIZE)
-    print y_idx, x_idx
     return RAW_DATA[y_idx][x_idx]
