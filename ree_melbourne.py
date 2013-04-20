@@ -50,6 +50,8 @@ class Home(webapp2.RequestHandler):
         translatedJson['LastFetch'] = data['local_date_time']
         translatedJson['WindSpeed'] = data['wind_spd_kt']
         translatedJson['WindSpeedEnergy'] = '100kJ'
+        translatedJson['Latitude'] = data['lat']
+        translatedJson['Longtitude'] = data['lon']
         io = StringIO()
         json.dump(translatedJson, io)
         return io.getvalue()
