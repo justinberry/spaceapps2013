@@ -42,7 +42,7 @@ def GetDistances(lat, lng, candidates):
     return distances
 
 
-def GetMinCandidate(lat, lng, candidates):
+def GetMinCandidateIndex(lat, lng, candidates):
     """From a list of candidates, return the one closest to the given lat/lng.
 
     Args:
@@ -51,7 +51,7 @@ def GetMinCandidate(lat, lng, candidates):
       candidates:  Iterable of objects with a .lat and .lng attribute.
     
     Returns:
-      A (lat, lng) of the location closest to the given lat/lng.
+      The index of the minimum distance element in candidates.
     """
     distances = GetDistances(lat, lng, candidates)
     min_distance = sys.maxint
@@ -61,8 +61,7 @@ def GetMinCandidate(lat, lng, candidates):
         if d < min_distance:
             min_distance = d
             min_idx = i
-    print min_idx
-    return candidates[min_idx].lat, candidates[min_idx].lng
+    return min_idx 
 
 
 def GetLocationName(lat, lng):
