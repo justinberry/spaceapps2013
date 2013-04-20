@@ -24,16 +24,10 @@ class AnnualSolar(object):
 
     def GetClosestPotential(self):
         """Returns the AnnualSolarPotential from the closest known location."""
-        country, region, city = location.GetLocationParts(
-            self.lat, self.lng)
-        where_clauses = ["country = %s" % country]
-        if region:
-            where_clauses.append("region = %s" % region)
-        if city:
-            where_clauses.append("city = %s" % city)
+        country, region, city = location.GetLocationParts(self.lat, self.lng)
         query = db.GqlQuery(
-            "SELECT lat, lng FROM AnnualSolarPotential WHERE %s"
-            % " AND ".join(where_clauses))
-        candidates = query.run(limit=100)  # TODO(zhi)
-        destinations = [(x.lat, x.lng) for x in candidates]
+            "SELECT lat, lng FROM AnnualSolarPotential WHERE country = :1 "
+            "  AND region = :2", country, region)
+        candidates = query.fetch(100)  # TODO(zhi)
+        return location.GetMinCandidate(self.lat, self.lng, candidates)
         

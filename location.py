@@ -33,8 +33,10 @@ def GetDistances(lat, lng, candidates):
         "destinations": "|".join(
             ["%s,%s" % (c.lat, c.lng) for c in candidates])
         }
+    print url
     result = urlfetch.fetch(url)
     distance_response = simplejson.loads(result.content)
+    print distance_response
     distances = [
         d["distance"]["value"] for d in distance_response["rows"][0]["elements"]]
     return distances
@@ -46,7 +48,7 @@ def GetMinCandidate(lat, lng, candidates):
     Args:
       lat: Latitude, float.
       lng: Longitude, float.
-      candidates:  List of objects with a .lat and .lng attribute.
+      candidates:  Iterable of objects with a .lat and .lng attribute.
     
     Returns:
       A (lat, lng) of the location closest to the given lat/lng.
@@ -60,7 +62,6 @@ def GetMinCandidate(lat, lng, candidates):
             min_distance = d
             min_idx = i
     print min_idx
-    print candidates
     return candidates[min_idx].lat, candidates[min_idx].lng
 
 
@@ -76,13 +77,14 @@ def GetLocationParts(lat, lng):
     by_country = None
     by_region = None
     by_city = None
-    for res in location_response["results"]:
-        if "city" in res["types"]:
-            by_city = res["formatted_address"] 
-        elif "administrative_area_level_1" in res["types"]:
-            by_region = res["formatted_address"]
-        elif "country" in res["types"]:
-            by_country = res["formatted_address"]
+    components = location_response["results"][0]["address_components"]
+    for comp in components:
+        if "locality" in comp["types"]:
+            by_city = comp["long_name"]
+        elif "administrative_area_level_1" in comp["types"]:
+            by_region = comp["long_name"]
+        elif "country" in  comp["types"]:
+            by_country = comp["long_name"]
     return (by_country, by_region, by_city)
 
 

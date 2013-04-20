@@ -13,3 +13,6 @@ handlers:
   script: test.app
 - url: /.*
   script: ree_melbourne.app
+
+builtins:
+- remote_api: on
