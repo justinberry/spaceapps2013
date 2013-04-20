@@ -1,4 +1,7 @@
+from django.utils import simplejson
+
 from google.appengine.api import urlfetch
+
 
 MAPS_API_TEMPLATE = (
     "http://maps.googleapis.com/maps/api/geocode/json?"
@@ -7,7 +10,7 @@ MAPS_API_TEMPLATE = (
 
 def GetLocationName(latitude, longitude):
     by_country, by_region, by_city = GetLocationParts(latitude, longitude)
-    return by_postal_code or by_city or by_country or "Unknown"
+    return by_city or by_region or by_country or "Unknown"
 
 
 def GetLocationParts(latitude, longitude):
