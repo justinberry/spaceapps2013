@@ -16,7 +16,7 @@ import location
 
 class Home(webapp2.RequestHandler):
 
-    bom_feed_url = "http://www.bom.gov.au/fwo/IDV60701/IDV60701.95964.json"
+    BOM_FEED_URL = "http://www.bom.gov.au/fwo/IDV60701/IDV60701.95964.json"
 
     def get(self):
         latitude = self.request.get("lat", default_value=-37.814107)
@@ -31,7 +31,7 @@ class Home(webapp2.RequestHandler):
             "We think you are in %s<br/>" 
             % location.GetLocationName(latitude, longitude))
 
-        jsonResponse = self.readFeed(self.bom_feed_url)
+        jsonResponse = self.readFeed(self.BOM_FEED_URL)
 
         if jsonResponse is None:
             self.response.out.write("Failed fetching data feed from %s" % url)
