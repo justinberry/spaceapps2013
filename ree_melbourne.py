@@ -43,7 +43,6 @@ class Home(webapp2.RequestHandler):
     def translateBomJsonResponse(self, rawJson):
         data = rawJson['observations']['data'][0]
         translatedJson = {}
-        translatedJson['WindSpeed'] = data['wind_spd_kt']
         # TODO - windspeed is kind of complicated and dependent on the turbine itself and air density.
         # Fudge some constants and maybe try and work out how to use the formula described here:
         # http://www.raeng.org.uk/education/diploma/maths/pdf/exemplars_advanced/23_wind_turbine.pdf
