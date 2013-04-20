@@ -10,4 +10,4 @@ libraries:
 
 handlers:
 - url: /.*
-  script: ree-melbourne.app
+  script: ree_melbourne.app
