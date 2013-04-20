@@ -34,6 +34,7 @@ def GetDistances(lat, lng, candidates):
             ["%s,%s" % (c.lat, c.lng) for c in candidates])
         }
     result = urlfetch.fetch(url)
+    print url
     distance_response = simplejson.loads(result.content)
     distances = [
         d["distance"]["value"] for d in distance_response["rows"][0]["elements"]]

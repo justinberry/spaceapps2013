@@ -31,9 +31,11 @@ transformers:
 
     - property: lat
       external_name: lat
+      import_transform: float
 
     - property: lng
       external_name: lng
+      import_transform: float
 
     - property: country
       external_name: country
@@ -46,9 +48,11 @@ transformers:
 
     - property: potential
       external_name: potential
+      import_transform: float
 
     - property: actual
       external_name: actual
+      import_transform: float
 
 - kind: AnnualWindPotential
   connector: csv
@@ -58,9 +62,11 @@ transformers:
 
     - property: lat
       external_name: lat
+      import_transform: float
 
     - property: lng
       external_name: lng
+      import_transform: float
 
     - property: country
       external_name: country
@@ -73,6 +79,8 @@ transformers:
 
     - property: potential
       external_name: potential
+      import_transform: float
 
     - property: actual
       external_name: actual
+      import_transform: float

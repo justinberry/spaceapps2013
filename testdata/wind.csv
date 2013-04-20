@@ -1,10 +1,10 @@
 lat,lng,country,region,city,potential,actual
-37.775,-122.4183,United States,California,San Francisco,300,75
--34.9286212,138.5999594,Australia,South Australia,Adelaide,200,100
--23.7002104,133.8806114,Australia,Northern Territory,Alice Springs,110,60
--27.4710107,153.0234489,Australia,Queensland,Brisbane,80,0
--35.3082355,149.1242241,Australia,Australian Capital Territory,Canberra,250,50
--12.4628198,130.8417694,Australia,Northern Territory,Darwin,80,10
--31.9530044,115.8574693,Australia,Western Australia,Perth,50,15
--37.814107,144.96328,Australia,Victoria,Melbourne,200,120
--33.8674869,151.2069902,Australia,New South Wales,Sydney,100,10
+37.775,-122.4183,United States,California,San Francisco,300.0,75.0
+-34.9286212,138.5999594,Australia,South Australia,Adelaide,200.0,100.0
+-23.7002104,133.8806114,Australia,Northern Territory,Alice Springs,110.0,60.0
+-27.4710107,153.0234489,Australia,Queensland,Brisbane,80.0,0.0
+-35.3082355,149.1242241,Australia,Australian Capital Territory,Canberra,250.0,50.0
+-12.4628198,130.8417694,Australia,Northern Territory,Darwin,80.0,10.0
+-31.9530044,115.8574693,Australia,Western Australia,Perth,50.0,15.0
+-37.814107,144.96328,Australia,Victoria,Melbourne,200.0,120.0
+-33.8674869,151.2069902,Australia,New South Wales,Sydney,100.0,10.0
