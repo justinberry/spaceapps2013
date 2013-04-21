@@ -52,9 +52,9 @@ class Home(webapp2.RequestHandler):
         translatedJson['Latitude'] = bomData['lat']
         translatedJson['Longtitude'] = bomData['lon']
 
-        pressure_hpa = data['press']
-        air_temp_c = data['air_temp']
-        air_speed_kt = data['wind_spd_kt']
+        pressure_hpa = bomData['press']
+        air_temp_c = bomData['air_temp']
+        air_speed_kt = bomData['wind_spd_kt']
         translatedJson['WindSpeedEnergy'] = wind.GetEnergyOutput(pressure_hpa, air_temp_c, air_speed_kt)
 
         return translatedJson
