@@ -5,6 +5,7 @@ import annual_solar
 import annual_wind
 import daily_solar
 import location
+import power_usage
 import utils
 
 class CityLatLng(object):
@@ -62,8 +63,14 @@ class Home(webapp2.RequestHandler):
         kwh = mj / 3.6 * 0.2
         self.response.out.write(
             "Your area had solar exposure of %.2f MJ yesterday. "
-            " At 20%% efficency that is %.2f kW/h per 1m^2 solar panel."
+            " At 20%% efficency that is %.2f kWh per 1m^2 solar panel.<br/>"
             % (mj, kwh))
+        usage = power_usage.AnnualConsumption(latitude, longitude)
+        gwh_per_capita = usage.PowerUsagePerCapita(region=region)
+        self.response.out.write(
+            "In %s, on average, a person uses %.2f kWh per year."
+            % (region, gwh_per_capita * 1000.0))
+
 
 app = webapp2.WSGIApplication([('/test', Home)], debug=True)
 
