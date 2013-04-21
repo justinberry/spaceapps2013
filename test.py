@@ -3,7 +3,7 @@ import webapp2
 # Local imports
 import annual_solar
 import annual_wind
-import daily_solar
+import solar_exposure
 import location
 import power_usage
 import utils
@@ -59,6 +59,7 @@ class Home(webapp2.RequestHandler):
                "city": wind_potential.city,
                "potential": wind_potential.potential,
                "actual": wind_potential.actual})
+        daily_solar = solar_exposure.DailySolarExposure("solar.daily.grid")
         mj = daily_solar.GetSunExposure(latitude, longitude)
         kwh = mj / 3.6 * 0.2
         self.response.out.write(
