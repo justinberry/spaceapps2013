@@ -13,6 +13,7 @@ from StringIO import StringIO
 
 # Local imports
 import location
+import wind
 
 class Home(webapp2.RequestHandler):
 
@@ -31,31 +32,34 @@ class Home(webapp2.RequestHandler):
             "We think you are in %s<br/>" 
             % location.GetLocationName(latitude, longitude))
 
-        jsonResponse = self.readFeed(self.BOM_FEED_URL)
+        jsonResponse = self.ReadFeed(self.BOM_FEED_URL)
 
         if jsonResponse is None:
             self.response.out.write("Failed fetching data feed from %s" % url)
             return
 
-        self.response.out.write(self.translateBomJsonResponse(jsonResponse))
+        data = []
+        data.append(self.TranslateBomWindDataResponse(jsonResponse))
+        self.response.out.write(json.dumps(data))
 
     # TODO - need to differentiate between feed types and parse accordingly.
-    def translateBomJsonResponse(self, rawJson):
-        data = rawJson['observations']['data'][0]
+    def TranslateBomWindDataResponse(self, rawJson):
+        bomData = rawJson['observations']['data'][0]
         translatedJson = {}
-        # TODO - windspeed is kind of complicated and dependent on the turbine itself and air density.
-        # Fudge some constants and maybe try and work out how to use the formula described here:
-        # http://www.raeng.org.uk/education/diploma/maths/pdf/exemplars_advanced/23_wind_turbine.pdf
-        translatedJson['LastFetch'] = data['local_date_time']
-        translatedJson['WindSpeed'] = data['wind_spd_kt']
-        translatedJson['WindSpeedEnergy'] = '100kJ'
-        translatedJson['Latitude'] = data['lat']
-        translatedJson['Longtitude'] = data['lon']
-        io = StringIO()
-        json.dump(translatedJson, io)
-        return io.getvalue()
+        translatedJson['FetchTime'] = bomData['local_date_time']
+        translatedJson['LastFetch'] = 'LastFetch'
+        translatedJson['WindSpeed'] = bomData['wind_spd_kt']
+        translatedJson['Latitude'] = bomData['lat']
+        translatedJson['Longtitude'] = bomData['lon']
+
+        pressure_hpa = data['press']
+        air_temp_c = data['air_temp']
+        air_speed_kt = data['wind_spd_kt']
+        translatedJson['WindSpeedEnergy'] = wind.GetEnergyOutput(pressure_hpa, air_temp_c, air_speed_kt)
+
+        return translatedJson
  
-    def readFeed(self, url):
+    def ReadFeed(self, url):
         response = urlfetch.fetch(url)
 
         if response.status_code == 200:
